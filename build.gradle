@@ -1,17 +1,23 @@
 plugins {
     id 'java'
+    alias(libs.plugins.axion.release)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.spring.boot)
 }
 
 group = 'com.github.kagokla'
-version = '1.0-SNAPSHOT'
+version = scmVersion.version
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.web)
+
+    // TEST
+    testImplementation(libs.spring.boot.starter.test)
 }
 
 test {
