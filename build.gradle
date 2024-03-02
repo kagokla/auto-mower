@@ -1,20 +1,29 @@
 plugins {
+    id 'jacoco'
     id 'java'
-    alias(libs.plugins.axion.release)
     alias(libs.plugins.lombok)
     alias(libs.plugins.spring.boot)
 }
 
 group = 'com.github.kagokla'
-version = scmVersion.version
+version = '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation(libs.spring.boot.starter.jetty)
     implementation(libs.spring.boot.starter.validation)
-    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.web) {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+
+    modules {
+        module("org.springframework.boot:spring-boot-starter-tomcat") {
+            replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Tomcat")
+        }
+    }
 
     // TEST
     testImplementation(libs.spring.boot.starter.test)
@@ -22,4 +31,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
