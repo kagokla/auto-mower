@@ -26,4 +26,20 @@ class OrientationTest {
         assertNull(Orientation.fromValue("    "));
         assertNull(Orientation.fromValue("koko"));
     }
+
+    @Test
+    void testRotateLeft() {
+        assertEquals(Orientation.NORTH, Orientation.EAST.rotateLeft());
+        assertEquals(Orientation.EAST, Orientation.SOUTH.rotateLeft());
+        assertEquals(Orientation.WEST, Orientation.NORTH.rotateLeft());
+        assertEquals(Orientation.SOUTH, Orientation.WEST.rotateLeft());
+    }
+
+    @Test
+    void testRotateRight() {
+        assertEquals(Orientation.NORTH, Orientation.WEST.rotateRight());
+        assertEquals(Orientation.EAST, Orientation.NORTH.rotateRight());
+        assertEquals(Orientation.WEST, Orientation.SOUTH.rotateRight());
+        assertEquals(Orientation.SOUTH, Orientation.EAST.rotateRight());
+    }
 }
