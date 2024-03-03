@@ -26,6 +26,24 @@ public enum Orientation {
                 .orElse(null);
     }
 
+    public Orientation rotateLeft() {
+        return switch (this) {
+            case NORTH -> WEST;
+            case EAST -> NORTH;
+            case WEST -> SOUTH;
+            case SOUTH -> EAST;
+        };
+    }
+
+    public Orientation rotateRight() {
+        return switch (this) {
+            case NORTH -> EAST;
+            case EAST -> SOUTH;
+            case WEST -> NORTH;
+            case SOUTH -> WEST;
+        };
+    }
+
     @JsonValue
     @Override
     public String toString() {
