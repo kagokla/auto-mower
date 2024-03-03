@@ -31,6 +31,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events 'FAILED', 'SKIPPED', 'PASSED'
+    }
 }
 
 jacocoTestReport {
