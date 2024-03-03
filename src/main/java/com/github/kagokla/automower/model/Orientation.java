@@ -26,7 +26,7 @@ public enum Orientation {
                 .orElse(null);
     }
 
-    public Orientation rotateLeft() {
+    public Orientation toLeft() {
         return switch (this) {
             case NORTH -> WEST;
             case EAST -> NORTH;
@@ -35,7 +35,7 @@ public enum Orientation {
         };
     }
 
-    public Orientation rotateRight() {
+    public Orientation toRight() {
         return switch (this) {
             case NORTH -> EAST;
             case EAST -> SOUTH;
