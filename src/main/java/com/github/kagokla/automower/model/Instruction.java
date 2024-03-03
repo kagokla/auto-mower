@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * Mower's movement. The mower can move forward or rotate according to the movement.
+ * Mower's instruction. The mower can move forward or rotate according to an instruction.
  */
-public enum Movement {
+public enum Instruction {
     FORWARD("F"),
     LEFT("L"),
     RIGHT("R");
 
     private final String label;
 
-    Movement(final String label) {
+    Instruction(final String label) {
         this.label = label;
     }
 
-    public static Movement fromValue(String label) {
+    public static Instruction fromValue(String label) {
         return Arrays.stream(values())
-                .filter(movement -> movement.label.equalsIgnoreCase(label))
+                .filter(instruction -> instruction.label.equalsIgnoreCase(label))
                 .findFirst()
                 .orElse(null);
     }
