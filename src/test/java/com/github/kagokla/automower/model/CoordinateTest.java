@@ -2,39 +2,35 @@ package com.github.kagokla.automower.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CoordinateTest {
 
     @Test
     void shouldIncrementX() {
         final var coordinate = new Coordinate(5, 20);
-
         coordinate.incrementX();
-        assertEquals(6, coordinate.getX());
+        assertThat(coordinate.getX()).isEqualTo(6);
     }
 
     @Test
     void shouldDecrementX() {
         final var coordinate = new Coordinate();
-
         coordinate.decrementX();
-        assertEquals(-1, coordinate.getX());
+        assertThat(coordinate.getX()).isEqualTo(-1);
     }
 
     @Test
     void shouldIncrementY() {
         final var coordinate = new Coordinate();
-
         coordinate.incrementY();
-        assertEquals(1, coordinate.getY());
+        assertThat(coordinate.getY()).isEqualTo(1);
     }
 
     @Test
     void shouldDecrementY() {
         final var coordinate = new Coordinate(6, -4);
-
         coordinate.decrementY();
-        assertEquals(-5, coordinate.getY());
+        assertThat(coordinate.getY()).isEqualTo(-5);
     }
 }

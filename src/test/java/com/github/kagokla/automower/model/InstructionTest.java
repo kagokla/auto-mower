@@ -2,29 +2,28 @@ package com.github.kagokla.automower.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class InstructionTest {
 
     @Test
     void shouldReturnStringRepresentation() {
-        assertEquals("L", Instruction.LEFT.toString());
-        assertEquals("R", Instruction.RIGHT.toString());
-        assertEquals("F", Instruction.FORWARD.toString());
+        assertThat(Instruction.LEFT).hasToString("L");
+        assertThat(Instruction.RIGHT).hasToString("R");
+        assertThat(Instruction.FORWARD).hasToString("F");
     }
 
     @Test
     void shouldReturnEnumFromStringValue() {
-        assertEquals(Instruction.LEFT, Instruction.fromValue("L"));
-        assertEquals(Instruction.RIGHT, Instruction.fromValue("R"));
-        assertEquals(Instruction.FORWARD, Instruction.fromValue("F"));
+        assertThat(Instruction.fromValue("L")).isEqualTo(Instruction.LEFT);
+        assertThat(Instruction.fromValue("R")).isEqualTo(Instruction.RIGHT);
+        assertThat(Instruction.fromValue("F")).isEqualTo(Instruction.FORWARD);
     }
 
     @Test
     void shouldReturnNullFromStringValue() {
-        assertNull(Instruction.fromValue(""));
-        assertNull(Instruction.fromValue("    "));
-        assertNull(Instruction.fromValue("koko"));
+        assertThat(Instruction.fromValue("")).isNull();
+        assertThat(Instruction.fromValue("    ")).isNull();
+        assertThat(Instruction.fromValue("koko")).isNull();
     }
 }

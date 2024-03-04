@@ -2,8 +2,7 @@ package com.github.kagokla.automower.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LawnTest extends ValidatorBase<Lawn> {
 
@@ -32,24 +31,24 @@ class LawnTest extends ValidatorBase<Lawn> {
     @Test
     void shouldSucceedWhenPositionIsInsideLawnWidth() {
         final var lawn = new Lawn(10, 20);
-        assertTrue(lawn.isWiderThanPosition(5));
+        assertThat(lawn.isWiderThanPosition(5)).isTrue();
     }
 
     @Test
     void shouldFailWhenPositionIsOutsideLawnWidth() {
         final var lawn = new Lawn(10, 20);
-        assertFalse(lawn.isWiderThanPosition(20));
+        assertThat(lawn.isWiderThanPosition(20)).isFalse();
     }
 
     @Test
     void shouldSucceedWhenPositionIsInsideLawnHeight() {
         final var lawn = new Lawn(2011, 2018);
-        assertTrue(lawn.isLongerThanPosition(1984));
+        assertThat(lawn.isLongerThanPosition(1984)).isTrue();
     }
 
     @Test
     void shouldFailWhenPositionIsOutsideLawnHeight() {
         final var lawn = new Lawn(2011, 2018);
-        assertFalse(lawn.isLongerThanPosition(2024));
+        assertThat(lawn.isLongerThanPosition(2024)).isFalse();
     }
 }

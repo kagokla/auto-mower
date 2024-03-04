@@ -2,47 +2,46 @@ package com.github.kagokla.automower.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class OrientationTest {
 
     @Test
     void shouldReturnStringRepresentation() {
-        assertEquals("N", Orientation.NORTH.toString());
-        assertEquals("E", Orientation.EAST.toString());
-        assertEquals("W", Orientation.WEST.toString());
-        assertEquals("S", Orientation.SOUTH.toString());
+        assertThat(Orientation.NORTH).hasToString("N");
+        assertThat(Orientation.EAST).hasToString("E");
+        assertThat(Orientation.WEST).hasToString("W");
+        assertThat(Orientation.SOUTH).hasToString("S");
     }
 
     @Test
     void shouldReturnEnumFromStringValue() {
-        assertEquals(Orientation.NORTH, Orientation.fromValue("N"));
-        assertEquals(Orientation.EAST, Orientation.fromValue("E"));
-        assertEquals(Orientation.WEST, Orientation.fromValue("W"));
-        assertEquals(Orientation.SOUTH, Orientation.fromValue("S"));
+        assertThat(Orientation.fromValue("N")).isEqualTo(Orientation.NORTH);
+        assertThat(Orientation.fromValue("E")).isEqualTo(Orientation.EAST);
+        assertThat(Orientation.fromValue("W")).isEqualTo(Orientation.WEST);
+        assertThat(Orientation.fromValue("S")).isEqualTo(Orientation.SOUTH);
     }
 
     @Test
     void shouldReturnNullFromStringValue() {
-        assertNull(Orientation.fromValue(""));
-        assertNull(Orientation.fromValue("    "));
-        assertNull(Orientation.fromValue("koko"));
+        assertThat(Orientation.fromValue("")).isNull();
+        assertThat(Orientation.fromValue("    ")).isNull();
+        assertThat(Orientation.fromValue("koko")).isNull();
     }
 
     @Test
     void shouldReturnOrientationToItsLeft() {
-        assertEquals(Orientation.NORTH, Orientation.EAST.toLeft());
-        assertEquals(Orientation.EAST, Orientation.SOUTH.toLeft());
-        assertEquals(Orientation.WEST, Orientation.NORTH.toLeft());
-        assertEquals(Orientation.SOUTH, Orientation.WEST.toLeft());
+        assertThat(Orientation.EAST.toLeft()).isEqualTo(Orientation.NORTH);
+        assertThat(Orientation.SOUTH.toLeft()).isEqualTo(Orientation.EAST);
+        assertThat(Orientation.NORTH.toLeft()).isEqualTo(Orientation.WEST);
+        assertThat(Orientation.WEST.toLeft()).isEqualTo(Orientation.SOUTH);
     }
 
     @Test
     void shouldReturnOrientationToItsRight() {
-        assertEquals(Orientation.NORTH, Orientation.WEST.toRight());
-        assertEquals(Orientation.EAST, Orientation.NORTH.toRight());
-        assertEquals(Orientation.WEST, Orientation.SOUTH.toRight());
-        assertEquals(Orientation.SOUTH, Orientation.EAST.toRight());
+        assertThat(Orientation.WEST.toRight()).isEqualTo(Orientation.NORTH);
+        assertThat(Orientation.NORTH.toRight()).isEqualTo(Orientation.EAST);
+        assertThat(Orientation.SOUTH.toRight()).isEqualTo(Orientation.WEST);
+        assertThat(Orientation.EAST.toRight()).isEqualTo(Orientation.SOUTH);
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class AutomowerApplicationTest {
@@ -19,7 +19,7 @@ class AutomowerApplicationTest {
 
     @Test
     void shouldLoadContext() {
-        assertNotNull(jacksonCustomizer);
-        assertNotNull(controller);
+        assertThat(jacksonCustomizer).isNotNull();
+        assertThat(controller).isNotNull();
     }
 }
