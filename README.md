@@ -57,9 +57,3 @@ The following payload is expected as response:
 
 - Adoptium Temurin 21: https://adoptium.net/
 - Gradle 8.6+: https://gradle.org/install/
-
-## Usage
-
-Start the service using the command:
-
-    $ java -jar automower-1.0.jar
