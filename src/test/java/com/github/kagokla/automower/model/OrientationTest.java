@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class OrientationTest {
 
     @Test
-    void testToString() {
+    void shouldReturnStringRepresentation() {
         assertEquals("N", Orientation.NORTH.toString());
         assertEquals("E", Orientation.EAST.toString());
         assertEquals("W", Orientation.WEST.toString());
@@ -16,19 +16,22 @@ class OrientationTest {
     }
 
     @Test
-    void testFromValue() {
+    void shouldReturnEnumFromStringValue() {
         assertEquals(Orientation.NORTH, Orientation.fromValue("N"));
         assertEquals(Orientation.EAST, Orientation.fromValue("E"));
         assertEquals(Orientation.WEST, Orientation.fromValue("W"));
         assertEquals(Orientation.SOUTH, Orientation.fromValue("S"));
+    }
 
+    @Test
+    void shouldReturnNullFromStringValue() {
         assertNull(Orientation.fromValue(""));
         assertNull(Orientation.fromValue("    "));
         assertNull(Orientation.fromValue("koko"));
     }
 
     @Test
-    void testToLeft() {
+    void shouldReturnOrientationToItsLeft() {
         assertEquals(Orientation.NORTH, Orientation.EAST.toLeft());
         assertEquals(Orientation.EAST, Orientation.SOUTH.toLeft());
         assertEquals(Orientation.WEST, Orientation.NORTH.toLeft());
@@ -36,7 +39,7 @@ class OrientationTest {
     }
 
     @Test
-    void testToRight() {
+    void shouldReturnOrientationToItsRight() {
         assertEquals(Orientation.NORTH, Orientation.WEST.toRight());
         assertEquals(Orientation.EAST, Orientation.NORTH.toRight());
         assertEquals(Orientation.WEST, Orientation.SOUTH.toRight());

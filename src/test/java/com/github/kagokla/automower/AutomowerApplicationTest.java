@@ -18,7 +18,7 @@ class AutomowerApplicationTest {
     private MowerController controller;
 
     @Test
-    void contextLoads() {
+    void shouldLoadContext() {
         assertNotNull(jacksonCustomizer);
         assertNotNull(controller);
     }

@@ -26,7 +26,7 @@ class LawnTest {
     }
 
     @Test
-    void testLawnValidDimensions() {
+    void shouldConstructLawnWhenDimensionsAreValid() {
         final var lawn = new Lawn(10, 20);
         final var lawnWithMinimalDimensions = new Lawn(1, 1);
 
@@ -35,7 +35,7 @@ class LawnTest {
     }
 
     @Test
-    void testLawnInvalidDimensions() {
+    void shouldNotConstructLawnWhenDimensionsAreInvalid() {
         final var lawnWithInvalidWidthAndHeight = new Lawn(0, 0);
         final var lawnWithInvalidWidth = new Lawn(-1, 150);
         final var lawnWithInvalidHeight = new Lawn(300, 0);
@@ -46,18 +46,26 @@ class LawnTest {
     }
 
     @Test
-    void testIsWiderThanPosition() {
+    void shouldSucceedWhenPositionIsInsideLawnWidth() {
         final var lawn = new Lawn(10, 20);
-
         assertTrue(lawn.isWiderThanPosition(5));
+    }
+
+    @Test
+    void shouldFailWhenPositionIsOutsideLawnWidth() {
+        final var lawn = new Lawn(10, 20);
         assertFalse(lawn.isWiderThanPosition(20));
     }
 
     @Test
-    void testIsLongerThanPosition() {
+    void shouldSucceedWhenPositionIsInsideLawnHeight() {
         final var lawn = new Lawn(2011, 2018);
-
         assertTrue(lawn.isLongerThanPosition(1984));
+    }
+
+    @Test
+    void shouldFailWhenPositionIsOutsideLawnHeight() {
+        final var lawn = new Lawn(2011, 2018);
         assertFalse(lawn.isLongerThanPosition(2024));
     }
 

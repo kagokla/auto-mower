@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CoordinateTest {
 
     @Test
-    void testIncrementX() {
+    void shouldIncrementX() {
         final var coordinate = new Coordinate(5, 20);
 
         coordinate.incrementX();
@@ -15,7 +15,7 @@ class CoordinateTest {
     }
 
     @Test
-    void testDecrementX() {
+    void shouldDecrementX() {
         final var coordinate = new Coordinate();
 
         coordinate.decrementX();
@@ -23,7 +23,7 @@ class CoordinateTest {
     }
 
     @Test
-    void testIncrementY() {
+    void shouldIncrementY() {
         final var coordinate = new Coordinate();
 
         coordinate.incrementY();
@@ -31,7 +31,7 @@ class CoordinateTest {
     }
 
     @Test
-    void testDecrementY() {
+    void shouldDecrementY() {
         final var coordinate = new Coordinate(6, -4);
 
         coordinate.decrementY();
