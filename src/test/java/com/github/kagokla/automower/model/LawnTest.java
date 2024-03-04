@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LawnTest extends ValidatorBase<Lawn> {
+class LawnTest extends ValidatorTestBase<Lawn> {
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldSucceedWhenDimensionsAreValid() {
         final var lawn = new Lawn(10, 20);
@@ -16,7 +16,7 @@ class LawnTest extends ValidatorBase<Lawn> {
         isValid(lawnWithMinimalDimensions);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenDimensionsAreInvalid() {
         final var lawnWithInvalidWidthAndHeight = new Lawn(0, 0);

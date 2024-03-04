@@ -1,20 +1,20 @@
 package com.github.kagokla.automower.model.dto;
 
-import com.github.kagokla.automower.model.ValidatorBase;
+import com.github.kagokla.automower.model.ValidatorTestBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
+class CommandRequestDTOTest extends ValidatorTestBase<CommandRequestDTO> {
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldSucceedWhenCommandRequestIsValid() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
         isValid(commandRequestDTO);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenMowerAreaIsInvalid() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
@@ -22,7 +22,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenMowerAreaIsNull() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
@@ -30,7 +30,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenInitialPositionIsInvalid() {
         final var mower = buildDefaultMower();
@@ -39,7 +39,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenInitialPositionIsNull() {
         final var mower = buildDefaultMower();
@@ -48,7 +48,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
-    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorTestBase
     @Test
     void shouldFailWhenInstructionsAreInvalid() {
         final var mower = buildDefaultMower();

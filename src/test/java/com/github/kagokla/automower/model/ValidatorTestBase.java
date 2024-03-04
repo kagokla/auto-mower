@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class ValidatorBase<T> {
+public abstract class ValidatorTestBase<T> {
 
     private static ValidatorFactory validatorFactory;
     private static Validator validator;
