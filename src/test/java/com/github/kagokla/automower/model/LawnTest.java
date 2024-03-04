@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LawnTest extends ValidatorBase<Lawn> {
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldSucceedWhenDimensionsAreValid() {
         final var lawn = new Lawn(10, 20);
@@ -16,6 +17,7 @@ class LawnTest extends ValidatorBase<Lawn> {
         isValid(lawnWithMinimalDimensions);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenDimensionsAreInvalid() {
         final var lawnWithInvalidWidthAndHeight = new Lawn(0, 0);

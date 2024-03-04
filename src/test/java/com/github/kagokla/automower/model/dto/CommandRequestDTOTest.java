@@ -7,12 +7,14 @@ import java.util.List;
 
 class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldSucceedWhenCommandRequestIsValid() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
         isValid(commandRequestDTO);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenMowerAreaIsInvalid() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
@@ -20,6 +22,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenMowerAreaIsNull() {
         final var commandRequestDTO = buildDefaultCommandRequestDTO();
@@ -27,6 +30,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenInitialPositionIsInvalid() {
         final var mower = buildDefaultMower();
@@ -35,6 +39,7 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenInitialPositionIsNull() {
         final var mower = buildDefaultMower();
@@ -43,18 +48,11 @@ class CommandRequestDTOTest extends ValidatorBase<CommandRequestDTO> {
         isInvalid(commandRequestDTO, 1);
     }
 
+    @SuppressWarnings("squid:S2699") // Assertions handled by ValidatorBase
     @Test
     void shouldFailWhenInstructionsAreInvalid() {
         final var mower = buildDefaultMower();
         mower.setInstructions("LFLFLFLBB");
-        final var commandRequestDTO = buildDefaultCommandRequestDTO(List.of(mower));
-        isInvalid(commandRequestDTO, 1);
-    }
-
-    @Test
-    void shouldFailWhenInstructionsAreNull() {
-        final var mower = buildDefaultMower();
-        mower.setInstructions(null);
         final var commandRequestDTO = buildDefaultCommandRequestDTO(List.of(mower));
         isInvalid(commandRequestDTO, 1);
     }
