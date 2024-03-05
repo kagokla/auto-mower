@@ -1,9 +1,11 @@
 package com.github.kagokla.automower.service;
 
 import com.github.kagokla.automower.model.dto.CommandRequestDTO;
+import com.github.kagokla.automower.model.dto.CommandResponseDTO;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,24 +27,46 @@ class MowingServiceTest {
 
         // Then
         assertThat(commandResponse).isNotNull();
-        // TODO: Add remaining assertions for the command's response
+        assertThat(commandResponse.getArea()).isEqualTo(commandRequest.getArea());
+        assertThat(commandResponse.getMowers()).hasSize(2);
+
+        final Predicate<CommandResponseDTO.Mower> firstMowerPredicate =
+                mower -> "12N".equalsIgnoreCase(mower.getInitialPosition())
+                        && "LFLFLFLFF".equalsIgnoreCase(mower.getInstructions());
+        final Predicate<CommandResponseDTO.Mower> secondMowerPredicate =
+                mower -> "33E".equalsIgnoreCase(mower.getInitialPosition())
+                        && "FFRFFRFRRF".equalsIgnoreCase(mower.getInstructions());
+
+        assertThat(commandResponse.getMowers())
+                .doesNotContainNull()
+                .filteredOn(firstMowerPredicate)
+                .extracting(CommandResponseDTO.Mower::getFinalPosition)
+                .isEqualTo("13N");
+        assertThat(commandResponse.getMowers())
+                .filteredOn(secondMowerPredicate)
+                .extracting(CommandResponseDTO.Mower::getFinalPosition)
+                .isEqualTo("51E");
     }
 
     @Test
     void shouldNotMoveMowerOutsideTheArea() {
         // Given
         final var commandRequest = new CommandRequestDTO();
-        final var firstMower = buildMower("11N", "FFFFFFFF");
-        final var secondMower = buildMower("00E", "FRF");
+        final var mower = buildMower("11N", "FFFFFFFF");
         commandRequest.setArea("33");
-        commandRequest.setMowers(List.of(firstMower, secondMower));
+        commandRequest.setMowers(List.of(mower));
 
         // When
         final var commandResponse = mowingService.processCommand(commandRequest);
 
         // Then
         assertThat(commandResponse).isNotNull();
-        // TODO: Add remaining assertions for the command's response
+        assertThat(commandResponse.getArea()).isEqualTo(commandRequest.getArea());
+        assertThat(commandResponse.getMowers()).hasSize(1);
+        assertThat(commandResponse.getMowers())
+                .doesNotContainNull()
+                .extracting(CommandResponseDTO.Mower::getFinalPosition)
+                .isEqualTo("13N");
     }
 
     @Test
