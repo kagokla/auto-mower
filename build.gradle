@@ -13,6 +13,11 @@ repositories {
 }
 
 dependencies {
+    // Mapstruct
+    implementation(libs.mapstruct)
+    annotationProcessor(libs.bundles.mapstruct.processor)
+
+    // Spring Boot
     implementation(libs.spring.boot.starter.jetty)
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.web) {
