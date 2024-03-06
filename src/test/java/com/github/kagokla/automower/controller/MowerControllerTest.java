@@ -2,8 +2,11 @@ package com.github.kagokla.automower.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.github.kagokla.automower.model.MowerPosition;
+import com.github.kagokla.automower.model.Orientation;
 import com.github.kagokla.automower.model.dto.CommandRequestDTO;
 import com.github.kagokla.automower.model.dto.CommandResponseDTO;
+import com.github.kagokla.automower.model.mapper.CommandRequestMapper;
 import com.github.kagokla.automower.service.MowingService;
 import com.github.kagokla.automower.spring.JacksonConfig;
 import org.junit.jupiter.api.BeforeAll;
@@ -48,9 +51,9 @@ class MowerControllerTest {
         final var area = "55";
         final var initialPosition = "12N";
         final var instructions = "LFLFLFLFF";
-        final var commandRequest = buildCommandRequestDTO(area, initialPosition, instructions);
-        final var finalPosition = "13N";
-        final var commandResponse = buildCommandResponseDTO(area, initialPosition, instructions, finalPosition);
+        final var commandRequest = buildCommandRequestDTOForOneMower(area, initialPosition, instructions);
+        final var finalPosition = new MowerPosition(1, 3, Orientation.NORTH);
+        final var commandResponse = buildCommandResponseDTOForOneMower(commandRequest, finalPosition);
 
         Mockito.when(mowingService.processCommand(any())).thenReturn(commandResponse);
 
@@ -66,7 +69,7 @@ class MowerControllerTest {
                 .andExpect(jsonPath("$.mowers", hasSize(1)))
                 .andExpect(jsonPath("$.mowers[0].initial_position").value(initialPosition))
                 .andExpect(jsonPath("$.mowers[0].instructions").value(instructions))
-                .andExpect(jsonPath("$.mowers[0].final_position").value(finalPosition));
+                .andExpect(jsonPath("$.mowers[0].final_position").value("13N"));
     }
 
     @Test
@@ -75,8 +78,9 @@ class MowerControllerTest {
         final var area = "area";
         final var initialPosition = "33E";
         final var instructions = "FFRFFRFRRF";
-        final var commandRequest = buildCommandRequestDTO(area, initialPosition, instructions);
-        final var commandResponse = buildCommandResponseDTO(area, initialPosition, instructions, "51E");
+        final var commandRequest = buildCommandRequestDTOForOneMower(area, initialPosition, instructions);
+        final var finalPosition = new MowerPosition(5, 1, Orientation.EAST);
+        final var commandResponse = buildCommandResponseDTOForOneMower(commandRequest, finalPosition);
 
         Mockito.when(mowingService.processCommand(any())).thenReturn(commandResponse);
 
@@ -89,7 +93,7 @@ class MowerControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    private CommandRequestDTO buildCommandRequestDTO(
+    private CommandRequestDTO buildCommandRequestDTOForOneMower(
             final String area, final String initialPosition, final String instructions) {
         final var mower = new CommandRequestDTO.Mower();
         mower.setInitialPosition(initialPosition);
@@ -101,15 +105,10 @@ class MowerControllerTest {
         return commandRequest;
     }
 
-    private CommandResponseDTO buildCommandResponseDTO(
-            final String area, final String initialPosition, final String instructions, final String finalPosition) {
-        final var mower = new CommandResponseDTO.Mower();
-        mower.setInitialPosition(initialPosition);
-        mower.setInstructions(instructions);
-        mower.setFinalPosition(finalPosition);
-        final var commandResponse = new CommandResponseDTO();
-        commandResponse.setArea(area);
-        commandResponse.setMowers(List.of(mower));
+    private CommandResponseDTO buildCommandResponseDTOForOneMower(
+            final CommandRequestDTO commandRequest, final MowerPosition finalPosition) {
+        final var commandResponse = CommandRequestMapper.MAPPER.mapCommandRequestToCommandResponse(commandRequest);
+        commandResponse.getMowers().forEach(mower -> mower.setFinalPosition(finalPosition));
 
         return commandResponse;
     }

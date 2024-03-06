@@ -1,5 +1,7 @@
 package com.github.kagokla.automower.service;
 
+import com.github.kagokla.automower.model.MowerPosition;
+import com.github.kagokla.automower.model.Orientation;
 import com.github.kagokla.automower.model.dto.CommandRequestDTO;
 import com.github.kagokla.automower.model.dto.CommandResponseDTO;
 import org.junit.jupiter.api.Test;
@@ -27,25 +29,31 @@ class MowingServiceTest {
 
         // Then
         assertThat(commandResponse).isNotNull();
-        assertThat(commandResponse.getArea()).isEqualTo(commandRequest.getArea());
+        assertThat(commandResponse.getArea().width()).isEqualTo(5);
+        assertThat(commandResponse.getArea().height()).isEqualTo(5);
         assertThat(commandResponse.getMowers()).hasSize(2);
 
-        final Predicate<CommandResponseDTO.Mower> firstMowerPredicate =
-                mower -> "12N".equalsIgnoreCase(mower.getInitialPosition())
-                        && "LFLFLFLFF".equalsIgnoreCase(mower.getInstructions());
-        final Predicate<CommandResponseDTO.Mower> secondMowerPredicate =
-                mower -> "33E".equalsIgnoreCase(mower.getInitialPosition())
-                        && "FFRFFRFRRF".equalsIgnoreCase(mower.getInstructions());
+        final Predicate<CommandResponseDTO.Mower> firstMowerPredicate = mower -> null != mower.getInitialPosition()
+                && mower.getInitialPosition().getX() == 1
+                && mower.getInitialPosition().getY() == 2
+                && mower.getInitialPosition().getOrientation() == Orientation.NORTH;
+
+        final Predicate<CommandResponseDTO.Mower> secondMowerPredicate = mower -> null != mower.getInitialPosition()
+                && mower.getInitialPosition().getX() == 3
+                && mower.getInitialPosition().getY() == 3
+                && mower.getInitialPosition().getOrientation() == Orientation.EAST;
 
         assertThat(commandResponse.getMowers())
                 .doesNotContainNull()
                 .filteredOn(firstMowerPredicate)
                 .extracting(CommandResponseDTO.Mower::getFinalPosition)
-                .isEqualTo("13N");
+                .flatExtracting(MowerPosition::getX, MowerPosition::getY, MowerPosition::getOrientation)
+                .containsExactly(1, 3, Orientation.NORTH);
         assertThat(commandResponse.getMowers())
                 .filteredOn(secondMowerPredicate)
                 .extracting(CommandResponseDTO.Mower::getFinalPosition)
-                .isEqualTo("51E");
+                .flatExtracting(MowerPosition::getX, MowerPosition::getY, MowerPosition::getOrientation)
+                .containsExactly(5, 1, Orientation.EAST);
     }
 
     @Test
@@ -61,7 +69,8 @@ class MowingServiceTest {
 
         // Then
         assertThat(commandResponse).isNotNull();
-        assertThat(commandResponse.getArea()).isEqualTo(commandRequest.getArea());
+        assertThat(commandResponse.getArea().width()).isEqualTo(3);
+        assertThat(commandResponse.getArea().height()).isEqualTo(3);
         assertThat(commandResponse.getMowers()).hasSize(1);
         assertThat(commandResponse.getMowers())
                 .doesNotContainNull()

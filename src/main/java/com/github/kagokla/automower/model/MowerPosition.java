@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position {
+public class MowerPosition {
 
     private int x;
     private int y;
