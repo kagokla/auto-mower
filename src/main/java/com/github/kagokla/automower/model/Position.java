@@ -1,21 +1,18 @@
 package com.github.kagokla.automower.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.awt.*;
 
 @Getter
 @Setter
-public class Coordinate extends Point {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Position {
 
-    public Coordinate(int x, int y) {
-        super(x, y);
-    }
-
-    public Coordinate() {
-        super();
-    }
+    private int x;
+    private int y;
 
     public void incrementX() {
         this.x++;
@@ -32,4 +29,6 @@ public class Coordinate extends Point {
     public void decrementY() {
         this.y--;
     }
+
+    private Orientation orientation;
 }
