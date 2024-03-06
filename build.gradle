@@ -13,6 +13,9 @@ repositories {
 }
 
 dependencies {
+    // Apache commons
+    implementation(libs.bundles.apache.common.helpers)
+
     // Mapstruct
     implementation(libs.mapstruct)
     annotationProcessor(libs.bundles.mapstruct.processor)
