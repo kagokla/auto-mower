@@ -8,19 +8,19 @@ import java.util.Arrays;
  * Mower's instruction. The mower can move forward or rotate according to an instruction.
  */
 public enum Instruction {
-    FORWARD("F"),
-    LEFT("L"),
-    RIGHT("R");
+    FORWARD('F'),
+    LEFT('L'),
+    RIGHT('R');
 
-    private final String label;
+    private final char label;
 
-    Instruction(final String label) {
+    Instruction(final char label) {
         this.label = label;
     }
 
-    public static Instruction fromValue(String label) {
+    public static Instruction fromValue(char label) {
         return Arrays.stream(values())
-                .filter(instruction -> instruction.label.equalsIgnoreCase(label))
+                .filter(instruction -> Character.toLowerCase(instruction.label) == Character.toLowerCase(label))
                 .findFirst()
                 .orElse(null);
     }
@@ -28,6 +28,6 @@ public enum Instruction {
     @JsonValue
     @Override
     public String toString() {
-        return label;
+        return String.valueOf(label);
     }
 }

@@ -8,20 +8,20 @@ import java.util.Arrays;
  * Mower's cardinal orientation on the lawn.
  */
 public enum Orientation {
-    NORTH("N"),
-    EAST("E"),
-    WEST("W"),
-    SOUTH("S");
+    NORTH('N'),
+    EAST('E'),
+    WEST('W'),
+    SOUTH('S');
 
-    private final String label;
+    private final char label;
 
-    Orientation(String label) {
+    Orientation(char label) {
         this.label = label;
     }
 
-    public static Orientation fromValue(String label) {
+    public static Orientation fromValue(final Character label) {
         return Arrays.stream(values())
-                .filter(orientation -> orientation.label.equalsIgnoreCase(label))
+                .filter(orientation -> Character.toLowerCase(orientation.label) == Character.toLowerCase(label))
                 .findFirst()
                 .orElse(null);
     }
@@ -47,6 +47,6 @@ public enum Orientation {
     @JsonValue
     @Override
     public String toString() {
-        return label;
+        return String.valueOf(label);
     }
 }
