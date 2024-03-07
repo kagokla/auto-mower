@@ -22,7 +22,7 @@ public interface CommandRequestMapper {
 
     CommandResponseDTO mapCommandRequestToCommandResponse(CommandRequestDTO commandRequest);
 
-    @Mapping(target = "finalPosition", source = "initialPosition")
+    @Mapping(target = "finalPosition", ignore = true)
     CommandResponseDTO.Mower mapCommandRequestMowerToCommandResponseMower(CommandRequestDTO.Mower commandRequestMower);
 
     default LawnArea mapAreaToLawn(final String commandRequestArea) {
@@ -45,10 +45,12 @@ public interface CommandRequestMapper {
 
         final var sanitizedMowerPosition = StringUtils.deleteWhitespace(mowerPosition);
         // TODO: enforce sanitizedMowerPosition complies to the expected pattern
-        final var x = Character.getNumericValue(sanitizedMowerPosition.charAt(0));
-        final var y = Character.getNumericValue(sanitizedMowerPosition.charAt(1));
-        final var orientation = Orientation.fromValue(sanitizedMowerPosition.charAt(2));
-        return new MowerPosition(x, y, orientation);
+        final var position = new MowerPosition();
+        position.setX(Character.getNumericValue(sanitizedMowerPosition.charAt(0)));
+        position.setY(Character.getNumericValue(sanitizedMowerPosition.charAt(1)));
+        position.setOrientation(Orientation.fromValue(sanitizedMowerPosition.charAt(2)));
+
+        return position;
     }
 
     default List<Instruction> mapMowerInstructionsToInstructions(final String mowerInstructions) {

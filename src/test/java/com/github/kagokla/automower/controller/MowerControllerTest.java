@@ -52,7 +52,10 @@ class MowerControllerTest {
         final var initialPosition = "12N";
         final var instructions = "LFLFLFLFF";
         final var commandRequest = buildCommandRequestDTOForOneMower(area, initialPosition, instructions);
-        final var finalPosition = new MowerPosition(1, 3, Orientation.NORTH);
+        final var finalPosition = new MowerPosition();
+        finalPosition.setX(1);
+        finalPosition.setY(3);
+        finalPosition.setOrientation(Orientation.NORTH);
         final var commandResponse = buildCommandResponseDTOForOneMower(commandRequest, finalPosition);
 
         Mockito.when(mowingService.processCommand(any())).thenReturn(commandResponse);
@@ -79,7 +82,10 @@ class MowerControllerTest {
         final var initialPosition = "33E";
         final var instructions = "FFRFFRFRRF";
         final var commandRequest = buildCommandRequestDTOForOneMower(area, initialPosition, instructions);
-        final var finalPosition = new MowerPosition(5, 1, Orientation.EAST);
+        final var finalPosition = new MowerPosition();
+        finalPosition.setX(5);
+        finalPosition.setY(1);
+        finalPosition.setOrientation(Orientation.EAST);
         final var commandResponse = buildCommandResponseDTOForOneMower(commandRequest, finalPosition);
 
         Mockito.when(mowingService.processCommand(any())).thenReturn(commandResponse);

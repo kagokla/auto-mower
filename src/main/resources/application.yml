@@ -1,5 +1,8 @@
 spring:
   application:
     name: automower
+  mvc:
+    problemdetails:
+      enabled: true
 server:
   port: 9099

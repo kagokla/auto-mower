@@ -57,11 +57,56 @@ class MowingServiceTest {
     }
 
     @Test
-    void shouldNotMoveMowerOutsideTheArea() {
+    void shouldNotMoveMowerBeyondTheAreaEast() {
         // Given
         final var commandRequest = new CommandRequestDTO();
-        final var mower = buildMower("11N", "FFFFFFFF");
-        commandRequest.setArea("33");
+        final var mower = buildMower("51E", "FFF");
+        commandRequest.setArea("76");
+        commandRequest.setMowers(List.of(mower));
+
+        // When
+        final var commandResponse = mowingService.processCommand(commandRequest);
+
+        // Then
+        assertThat(commandResponse).isNotNull();
+        assertThat(commandResponse.getArea().width()).isEqualTo(7);
+        assertThat(commandResponse.getArea().height()).isEqualTo(6);
+        assertThat(commandResponse.getMowers()).hasSize(1);
+        final var finalPosition = commandResponse.getMowers().getFirst().getFinalPosition();
+        assertThat(finalPosition.getX()).isEqualTo(7);
+        assertThat(finalPosition.getY()).isEqualTo(1);
+        assertThat(finalPosition.getOrientation()).isEqualTo(Orientation.EAST);
+    }
+
+    @Test
+    void shouldNotMoveMowerBeyondTheAreaWest() {
+        // Given
+        final var commandRequest = new CommandRequestDTO();
+        final var mower = buildMower("32W", "FFFF");
+        commandRequest.setArea("99");
+        commandRequest.setMowers(List.of(mower));
+
+        // When
+        final var commandResponse = mowingService.processCommand(commandRequest);
+
+        // Then
+        assertThat(commandResponse).isNotNull();
+        assertThat(commandResponse.getArea().width()).isEqualTo(9);
+        assertThat(commandResponse.getArea().height()).isEqualTo(9);
+        assertThat(commandResponse.getMowers()).hasSize(1);
+
+        final var finalPosition = commandResponse.getMowers().getFirst().getFinalPosition();
+        assertThat(finalPosition.getX()).isZero();
+        assertThat(finalPosition.getY()).isEqualTo(2);
+        assertThat(finalPosition.getOrientation()).isEqualTo(Orientation.WEST);
+    }
+
+    @Test
+    void shouldNotMoveMowerBeyondTheAreaNorth() {
+        // Given
+        final var commandRequest = new CommandRequestDTO();
+        final var mower = buildMower("11N", "FFFFF");
+        commandRequest.setArea("35");
         commandRequest.setMowers(List.of(mower));
 
         // When
@@ -70,12 +115,56 @@ class MowingServiceTest {
         // Then
         assertThat(commandResponse).isNotNull();
         assertThat(commandResponse.getArea().width()).isEqualTo(3);
-        assertThat(commandResponse.getArea().height()).isEqualTo(3);
+        assertThat(commandResponse.getArea().height()).isEqualTo(5);
         assertThat(commandResponse.getMowers()).hasSize(1);
-        assertThat(commandResponse.getMowers())
-                .doesNotContainNull()
-                .extracting(CommandResponseDTO.Mower::getFinalPosition)
-                .isEqualTo("13N");
+        final var finalPosition = commandResponse.getMowers().getFirst().getFinalPosition();
+        assertThat(finalPosition.getX()).isEqualTo(1);
+        assertThat(finalPosition.getY()).isEqualTo(5);
+        assertThat(finalPosition.getOrientation()).isEqualTo(Orientation.NORTH);
+    }
+
+    @Test
+    void shouldNotMoveMowerBeyondTheAreaSouth() {
+        // Given
+        final var commandRequest = new CommandRequestDTO();
+        final var mower = buildMower("22S", "FFF");
+        commandRequest.setArea("44");
+        commandRequest.setMowers(List.of(mower));
+
+        // When
+        final var commandResponse = mowingService.processCommand(commandRequest);
+
+        // Then
+        assertThat(commandResponse).isNotNull();
+        assertThat(commandResponse.getArea().width()).isEqualTo(4);
+        assertThat(commandResponse.getArea().height()).isEqualTo(4);
+        assertThat(commandResponse.getMowers()).hasSize(1);
+
+        final var finalPosition = commandResponse.getMowers().getFirst().getFinalPosition();
+        assertThat(finalPosition.getX()).isEqualTo(2);
+        assertThat(finalPosition.getY()).isZero();
+        assertThat(finalPosition.getOrientation()).isEqualTo(Orientation.SOUTH);
+    }
+
+    @Test
+    void shouldNotMoveMowerInitiallyOutsideTheArea() {
+        // Given
+        final var commandRequest = new CommandRequestDTO();
+        final var mower = buildMower("54E", "FFFFF");
+        commandRequest.setArea("22");
+        commandRequest.setMowers(List.of(mower));
+
+        // When
+        final var commandResponse = mowingService.processCommand(commandRequest);
+
+        // Then
+        assertThat(commandResponse).isNotNull();
+        assertThat(commandResponse.getArea().width()).isEqualTo(2);
+        assertThat(commandResponse.getArea().height()).isEqualTo(2);
+        assertThat(commandResponse.getMowers()).hasSize(1);
+
+        final var finalPosition = commandResponse.getMowers().getFirst().getFinalPosition();
+        assertThat(finalPosition).isNull();
     }
 
     @Test

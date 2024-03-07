@@ -10,11 +10,11 @@ import jakarta.validation.constraints.Min;
  */
 public record LawnArea(@Min(1) int width, @Min(1) int height) {
 
-    boolean isWiderThanPosition(final int position) {
+    public boolean isWiderThanPosition(final int position) {
         return position < this.width;
     }
 
-    boolean isLongerThanPosition(final int position) {
+    public boolean isLongerThanPosition(final int position) {
         return position < this.height;
     }
 }

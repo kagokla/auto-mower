@@ -1,6 +1,5 @@
 package com.github.kagokla.automower.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +7,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class MowerPosition {
 
     private int x;
     private int y;
+    private Orientation orientation = Orientation.NORTH;
+
+    public MowerPosition(MowerPosition position) {
+        this.x = position.getX();
+        this.y = position.getY();
+        this.orientation = position.getOrientation();
+    }
 
     public void incrementX() {
         this.x++;
@@ -30,5 +35,11 @@ public class MowerPosition {
         this.y--;
     }
 
-    private Orientation orientation;
+    public void rotateLeft() {
+        this.orientation = this.orientation.toLeft();
+    }
+
+    public void rotateRight() {
+        this.orientation = this.orientation.toRight();
+    }
 }
