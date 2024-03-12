@@ -15,15 +15,15 @@ class InstructionTest {
 
     @Test
     void shouldReturnEnumFromStringValue() {
-        assertThat(Instruction.fromValue('L')).isEqualTo(Instruction.LEFT);
-        assertThat(Instruction.fromValue('R')).isEqualTo(Instruction.RIGHT);
-        assertThat(Instruction.fromValue('F')).isEqualTo(Instruction.FORWARD);
+        assertThat(Instruction.fromLabel('L')).isEqualTo(Instruction.LEFT);
+        assertThat(Instruction.fromLabel('R')).isEqualTo(Instruction.RIGHT);
+        assertThat(Instruction.fromLabel('F')).isEqualTo(Instruction.FORWARD);
     }
 
     @Test
     void shouldReturnNullFromStringValue() {
-        assertThat(Instruction.fromValue(Character.MIN_VALUE)).isNull();
-        assertThat(Instruction.fromValue(Character.MAX_VALUE)).isNull();
-        assertThat(Instruction.fromValue('K')).isNull();
+        assertThat(Instruction.fromLabel(Character.MIN_VALUE)).isNull();
+        assertThat(Instruction.fromLabel(Character.MAX_VALUE)).isNull();
+        assertThat(Instruction.fromLabel('K')).isNull();
     }
 }

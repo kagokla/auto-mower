@@ -48,7 +48,7 @@ public interface CommandRequestMapper {
         final var position = new MowerPosition();
         position.setX(Character.getNumericValue(sanitizedMowerPosition.charAt(0)));
         position.setY(Character.getNumericValue(sanitizedMowerPosition.charAt(1)));
-        position.setOrientation(Orientation.fromValue(sanitizedMowerPosition.charAt(2)));
+        position.setOrientation(Orientation.fromLabel(sanitizedMowerPosition.charAt(2)));
 
         return position;
     }
@@ -61,7 +61,7 @@ public interface CommandRequestMapper {
         final var sanitizedMowerInstructions = StringUtils.deleteWhitespace(mowerInstructions);
         final var instructions = new ArrayList<Instruction>();
         for (var i = 0; i < sanitizedMowerInstructions.length(); i++) {
-            final var instruction = Instruction.fromValue(sanitizedMowerInstructions.charAt(i));
+            final var instruction = Instruction.fromLabel(sanitizedMowerInstructions.charAt(i));
             instructions.add(instruction);
         }
 

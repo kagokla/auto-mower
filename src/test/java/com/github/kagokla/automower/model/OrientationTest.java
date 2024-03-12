@@ -16,17 +16,17 @@ class OrientationTest {
 
     @Test
     void shouldReturnEnumFromStringValue() {
-        assertThat(Orientation.fromValue('N')).isEqualTo(Orientation.NORTH);
-        assertThat(Orientation.fromValue('E')).isEqualTo(Orientation.EAST);
-        assertThat(Orientation.fromValue('W')).isEqualTo(Orientation.WEST);
-        assertThat(Orientation.fromValue('S')).isEqualTo(Orientation.SOUTH);
+        assertThat(Orientation.fromLabel('N')).isEqualTo(Orientation.NORTH);
+        assertThat(Orientation.fromLabel('E')).isEqualTo(Orientation.EAST);
+        assertThat(Orientation.fromLabel('W')).isEqualTo(Orientation.WEST);
+        assertThat(Orientation.fromLabel('S')).isEqualTo(Orientation.SOUTH);
     }
 
     @Test
     void shouldReturnNullFromStringValue() {
-        assertThat(Orientation.fromValue(Character.MIN_VALUE)).isNull();
-        assertThat(Instruction.fromValue(Character.MAX_VALUE)).isNull();
-        assertThat(Orientation.fromValue('k')).isNull();
+        assertThat(Orientation.fromLabel(Character.MIN_VALUE)).isNull();
+        assertThat(Instruction.fromLabel(Character.MAX_VALUE)).isNull();
+        assertThat(Orientation.fromLabel('k')).isNull();
     }
 
     @Test
