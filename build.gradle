@@ -12,6 +12,10 @@ repositories {
     mavenCentral()
 }
 
+compileJava {
+    options.release = 21
+}
+
 dependencies {
     // Apache commons
     implementation(libs.bundles.apache.common.helpers)
